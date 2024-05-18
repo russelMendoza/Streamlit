@@ -35,13 +35,13 @@ def predict(image):
     return prediction[0]
 
 # Streamlit app
-st.title("Eye Disease Detection System")
+st.title("Team 12 Final Exam: Model Deployment in the Cloud")
 
-# Centering the app section buttons
-col1, col2, col3 = st.columns([1, 5, 1])
-with col2:
-    # Create tabs for app sections
-    app_mode = st.radio("Choose App Section:", ["App Details", "Eye Disease Detection"])
+# Display the subheader
+st.subheader("Eye Disease Detection System")
+
+# Left corner for "Choose App Section"
+app_mode = st.sidebar.radio("Choose App Section:", ["App Details", "Eye Disease Detection"])
 
 # App Details tab
 if app_mode == "App Details":
