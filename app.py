@@ -74,4 +74,10 @@ if app_mode == "Eye Disease Detection":
 elif app_mode == "Model Details":
     st.write("## About this Model")
     st.write("This app uses a CNN deep learning model to detect common eye diseases from retinal images. It shows the probability level of an eye disease based on the four conditions currently present on the model:")
-    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal"])
+    st.write("- Cataract")
+    st.write("- Diabetic Retinopathy")
+    st.write("- Glaucoma")
+    st.write("- Normal")
+    st.write("## Members:")
+    st.write("- Castillo, John Paul")
+    st.write("- Mendoza, Russel Railee")
