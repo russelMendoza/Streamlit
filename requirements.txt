@@ -1,2 +1,4 @@
 streamlit
-tenserflow
+tensorflow
+pillow
+opencv-python-headless
