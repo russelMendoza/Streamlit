@@ -11,7 +11,6 @@ Original file is located at
 
 import streamlit as st
 from PIL import Image, ImageOps
-import cv2
 
 def load_model():
     model = tf.keras.models.load_model('/content/drive/MyDrive/Colab Notebooks/finalproj.h5')  # Adjust the path if necessary
