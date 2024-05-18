@@ -41,16 +41,10 @@ st.title("Eye Disease Detection System")
 st.sidebar.write("## Team 12 Final Exam: Model Deployment in the Cloud")
 
 # Left corner for "Choose App Section"
-app_mode = st.sidebar.radio("", ["Model Details", "Eye Disease Detection"])
-
-# App Details tab
-if app_mode == "Model Details":
-    st.write("## About this Model")
-    st.write("This app uses a CNN deep learning model to detect common eye diseases from retinal images. It shows the probability level of an eye disease based on the four conditions currently present on the model:")
-    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal"])
+app_mode = st.sidebar.radio("", ["Eye Disease Detection", "Model Details"])
 
 # Eye Disease Detection tab
-elif app_mode == "Eye Disease Detection":
+if app_mode == "Eye Disease Detection":
     # File uploader
     uploaded_file = st.file_uploader("Upload an image to predict the likelihood of various eye diseases.", type=["jpg", "jpeg", "png"])
 
@@ -75,3 +69,9 @@ elif app_mode == "Eye Disease Detection":
             st.write("## Prediction Results:")
             for i, class_name in enumerate(class_names):
                 st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
+
+# App Details tab
+elif app_mode == "Model Details":
+    st.write("## About this Model")
+    st.write("This app uses a CNN deep learning model to detect common eye diseases from retinal images. It shows the probability level of an eye disease based on the four conditions currently present on the model:")
+    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal"])
