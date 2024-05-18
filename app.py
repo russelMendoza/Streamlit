@@ -14,47 +14,48 @@ import numpy as np
 import cv2
 import io
 
+# Load the trained model
+model = tf.keras.models.load_model('best_model.h5')
 
-@st.cache_resource
-def load_model():
-    model = tf.keras.models.load_model('best_model.h5')  # Path adjusted for Colab
-    return model
+# Define class names corresponding to the model's output classes
+class_names = ['cataract', 'diabetic_retinopathy', 'glaucoma', 'normal']
 
-model = load_model()
+# Function to preprocess an image
+def preprocess_image(image):
+    image = cv2.resize(image, (32, 32))
+    image = image / 255.0  # Normalize pixel values to [0, 1]
+    return image
 
-st.write("""
-# Eye Disease Detection System
-""")
+# Function to make predictions
+def predict(image):
+    # Preprocess the image
+    preprocessed_image = preprocess_image(image)
+    # Perform prediction
+    prediction = model.predict(np.expand_dims(preprocessed_image, axis=0))
+    return prediction[0]
 
-file = st.file_uploader("Choose retina image to identify the condition", type=["jpg", "png", "jpeg"])
+# Streamlit app
+st.title("Eye Disease Detection System")
 
+# File uploader
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-def import_and_predict(image_data, model):
-    try:
-        size = (64, 64)  # Ensure the input size matches the model's expected input size
-        image_stream = io.BytesIO(image_data.read())
-        image = Image.open(image_stream)
-        image = image.convert("RGB")
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
-        img = np.asarray(image)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        img_reshape = img[np.newaxis, ...]
-        print("Input image shape:", img.shape)  # Debug statement
-        prediction = model.predict(img_reshape)
-        print("Model prediction:", prediction)  # Debug statement
-        return prediction
-    except Exception as e:
-        st.error(f"Error processing image: {e}")
-        return None
+# Process uploaded image and make predictions
+if uploaded_file is not None:
+    # Read the uploaded image
+    image = Image.open(uploaded_file)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
 
+    # Convert the image to a numpy array
+    img_array = np.array(image)
 
+    # Make prediction
+    prediction = predict(img_array)
 
-if file is None:
-    st.text("Please upload an image file")
-else:
-    image = Image.open(file)
-    st.image(image, use_column_width=True)
-    prediction = import_and_predict(image, model)
-    class_names = ['cataract', 'diabetic retinopathy', 'glaucoma', 'normal']  # Adjust class names as needed
-    string = "OUTPUT : " + class_names[np.argmax(prediction)]
-    st.success(string)
+    # Display prediction results
+    st.write("## Prediction Results:")
+    for i, class_name in enumerate(class_names):
+        st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
+
+# Instructions
+st.write("Upload an image to predict the likelihood of various eye diseases.")
