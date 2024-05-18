@@ -17,7 +17,7 @@ import io
 
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model('finalproj.h5')  # Path adjusted for Colab
+    model = tf.keras.models.load_model('best_model.h5')  # Path adjusted for Colab
     return model
 
 model = load_model()
