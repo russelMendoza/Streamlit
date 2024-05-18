@@ -34,12 +34,14 @@ def import_and_predict(image_data, model):
         image = image.convert("RGB")  # Convert to RGB mode if necessary
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
         img = np.asarray(image)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)  # Convert RGB to BGR for OpenCV
         img_reshape = img[np.newaxis, ...]  # Reshape image to match model's input shape
         prediction = model.predict(img_reshape)
         return prediction
     except Exception as e:
         st.error(f"Error processing image: {e}")
         return None
+
 
 if file is None:
     st.text("Please upload an image file")
