@@ -10,8 +10,12 @@ Original file is located at
 
 
 import streamlit as st
+import tensorflow as tf
 from PIL import Image, ImageOps
+import numpy as np
+import cv2
 
+@st.cache_resource
 def load_model():
     model = tf.keras.models.load_model('/content/drive/MyDrive/Colab Notebooks/finalproj.h5')  # Adjust the path if necessary
     return model
@@ -42,3 +46,4 @@ else:
     class_names = ['cataract', 'diabetic retinopathy', 'glaucoma', 'normal']  # Adjust class names as needed
     string = "OUTPUT : " + class_names[np.argmax(prediction)]
     st.success(string)
+
