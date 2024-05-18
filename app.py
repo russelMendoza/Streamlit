@@ -12,6 +12,7 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 import cv2
+import io
 
 # Load the trained model
 model = tf.keras.models.load_model('best_model.h5')
@@ -43,7 +44,7 @@ st.sidebar.write("## Team 12 Final Exam: Model Deployment in the Cloud")
 app_mode = st.sidebar.radio("", ["Eye Disease Detection", "Model Details"])
 
 # Eye Disease Detection tab
-if app_mode == "Eye Disease Detection Model":
+if app_mode == "Eye Disease Detection":
     # File uploader
     uploaded_file = st.file_uploader("Upload an image to predict the likelihood of various eye diseases.", type=["jpg", "jpeg", "png"])
 
@@ -69,14 +70,8 @@ if app_mode == "Eye Disease Detection Model":
             for i, class_name in enumerate(class_names):
                 st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
 
-# Model Details tab
-elif app_mode == "Project Details":
+# App Details tab
+elif app_mode == "Model Details":
     st.write("## About this Model")
     st.write("This app uses a CNN deep learning model to detect common eye diseases from retinal images. It shows the probability level of an eye disease based on the four conditions currently present on the model:")
-    st.write("- Cataract")
-    st.write("- Diabetic Retinopathy")
-    st.write("- Glaucoma")
-    st.write("- Normal")
-    st.write("## Members:")
-    st.write("- Castillo, John Paul")
-    st.write("- Mendoza, Russel Railee")
+    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal"])
