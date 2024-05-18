@@ -37,14 +37,17 @@ def predict(image):
 # Streamlit app
 st.title("Eye Disease Detection System")
 
-# Create tabs for app sections
-app_mode = st.sidebar.selectbox("Choose App Section:", ["App Details", "Eye Disease Detection"])
+# Centering the app section buttons
+col1, col2, col3 = st.columns([1, 5, 1])
+with col2:
+    # Create tabs for app sections
+    app_mode = st.radio("Choose App Section:", ["App Details", "Eye Disease Detection"])
 
 # App Details tab
 if app_mode == "App Details":
-    st.sidebar.title("About")
-    st.sidebar.info("This app uses a deep learning model to detect common eye diseases from retinal images.")
-    st.sidebar.info("Upload an image to predict the likelihood of various eye diseases.")
+    st.write("## About")
+    st.write("This app uses a deep learning model to detect common eye diseases from retinal images.")
+    st.write("Upload an image to predict the likelihood of various eye diseases.")
 
 # Eye Disease Detection tab
 elif app_mode == "Eye Disease Detection":
