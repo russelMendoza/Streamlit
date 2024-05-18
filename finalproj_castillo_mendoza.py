@@ -11,7 +11,6 @@ Original file is located at
 
 import streamlit as st
 from PIL import Image, ImageOps
-import numpy as np
 import cv2
 
 def load_model():
