@@ -37,18 +37,17 @@ def predict(image):
 # Streamlit app
 st.title("Eye Disease Detection System")
 
-
 # Left corner for "Team 12 Final Exam: Model Deployment in the Cloud"
-st.sidebar.write("## [Team 12 Final Exam", "Model Deployment in the Cloud"])
+st.sidebar.write("## Team 12 Final Exam: Model Deployment in the Cloud")
 
 # Left corner for "Choose App Section"
-app_mode = st.sidebar.radio("", ["App Details", "Eye Disease Detection"])
+app_mode = st.sidebar.radio("", ["Model Details", "Eye Disease Detection"])
 
 # App Details tab
 if app_mode == "Model Details":
     st.write("## About this Model")
     st.write("This app uses a CNN deep learning model to detect common eye diseases from retinal images. It shows the probability level of an eye disease based on the four conditions currently present on the model:")
-    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal")
+    st.write(["Cataract", "Diabetic Retinopathy", "Glaucoma", "Normal"])
 
 # Eye Disease Detection tab
 elif app_mode == "Eye Disease Detection":
