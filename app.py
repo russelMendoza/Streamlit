@@ -37,30 +37,38 @@ def predict(image):
 # Streamlit app
 st.title("Eye Disease Detection System")
 
-# File uploader
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+# Create tabs for app sections
+app_mode = st.sidebar.selectbox("Choose App Section:", ["App Details", "Eye Disease Detection"])
 
-# Process uploaded image and make predictions
-if uploaded_file is not None:
-    # Read the uploaded image
-    image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+# App Details tab
+if app_mode == "App Details":
+    st.sidebar.title("About")
+    st.sidebar.info("This app uses a deep learning model to detect common eye diseases from retinal images.")
+    st.sidebar.info("Upload an image to predict the likelihood of various eye diseases.")
 
-    # Convert the image to a numpy array
-    img_array = np.array(image)
+# Eye Disease Detection tab
+elif app_mode == "Eye Disease Detection":
+    # File uploader
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-    # Make prediction
-    prediction = predict(img_array)
+    # Process uploaded image and make predictions
+    if uploaded_file is not None:
+        # Read the uploaded image
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Uploaded Image', use_column_width=True)
 
-    # Check if the maximum confidence level is below a certain threshold
-    threshold = 0.75  # You can adjust this threshold as needed
-    if np.max(prediction) < threshold:
-        st.write("The image provided is not recognizable to the system.")
-    else:
-        # Display prediction results
-        st.write("## Prediction Results:")
-        for i, class_name in enumerate(class_names):
-            st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
+        # Convert the image to a numpy array
+        img_array = np.array(image)
 
-# Instructions
-st.write("Upload an image to predict the likelihood of various eye diseases.")
+        # Make prediction
+        prediction = predict(img_array)
+
+        # Check if the maximum confidence level is below a certain threshold
+        threshold = 0.5  # You can adjust this threshold as needed
+        if np.max(prediction) < threshold:
+            st.write("The image provided is not recognizable to the system.")
+        else:
+            # Display prediction results
+            st.write("## Prediction Results:")
+            for i, class_name in enumerate(class_names):
+                st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
