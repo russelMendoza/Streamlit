@@ -35,13 +35,16 @@ def predict(image):
     return prediction[0]
 
 # Streamlit app
-st.title("Team 12 Final Exam: Model Deployment in the Cloud")
+st.title("Eye Disease Detection System")
 
 # Display the subheader
-st.subheader("Eye Disease Detection System")
+st.subheader("Team 12 Final Exam: Model Deployment in the Cloud")
+
+# Left corner for "Team 12 Final Exam: Model Deployment in the Cloud"
+st.sidebar.write("## Team 12 Final Exam: Model Deployment in the Cloud")
 
 # Left corner for "Choose App Section"
-app_mode = st.sidebar.radio("Choose App Section:", ["App Details", "Eye Disease Detection"])
+app_mode = st.sidebar.radio("", ["App Details", "Eye Disease Detection"])
 
 # App Details tab
 if app_mode == "App Details":
