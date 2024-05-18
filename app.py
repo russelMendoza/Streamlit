@@ -28,13 +28,18 @@ st.write("""
 file = st.file_uploader("Choose retina image to identify the condition", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
-    size = (64, 64)  # Ensure the input size matches the model's expected input size
-    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
-    img = np.asarray(image)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Ensure image is in RGB format
-    img_reshape = img[np.newaxis, ...]  # Reshape image to match model's input shape
-    prediction = model.predict(img_reshape)
-    return prediction
+    try:
+        size = (64, 64)  # Ensure the input size matches the model's expected input size
+        image = Image.open(image_data)
+        image = image.convert("RGB")  # Convert to RGB mode if necessary
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        img = np.asarray(image)
+        img_reshape = img[np.newaxis, ...]  # Reshape image to match model's input shape
+        prediction = model.predict(img_reshape)
+        return prediction
+    except Exception as e:
+        st.error(f"Error processing image: {e}")
+        return None
 
 if file is None:
     st.text("Please upload an image file")
