@@ -32,19 +32,21 @@ file = st.file_uploader("Choose retina image to identify the condition", type=["
 def import_and_predict(image_data, model):
     try:
         size = (64, 64)  # Ensure the input size matches the model's expected input size
-        # Convert image_data to BytesIO object
         image_stream = io.BytesIO(image_data.read())
         image = Image.open(image_stream)
-        image = image.convert("RGB")  # Convert to RGB mode if necessary
+        image = image.convert("RGB")
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
         img = np.asarray(image)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Ensure image is in RGB format
-        img_reshape = img[np.newaxis, ...]  # Reshape image to match model's input shape
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_reshape = img[np.newaxis, ...]
+        print("Input image shape:", img.shape)  # Debug statement
         prediction = model.predict(img_reshape)
+        print("Model prediction:", prediction)  # Debug statement
         return prediction
     except Exception as e:
         st.error(f"Error processing image: {e}")
         return None
+
 
 
 if file is None:
