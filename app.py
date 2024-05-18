@@ -53,7 +53,7 @@ if uploaded_file is not None:
     prediction = predict(img_array)
 
     # Check if the maximum confidence level is below a certain threshold
-    threshold = 0.5  # You can adjust this threshold as needed
+    threshold = 0.75  # You can adjust this threshold as needed
     if np.max(prediction) < threshold:
         st.write("The image provided is not recognizable to the system.")
     else:
