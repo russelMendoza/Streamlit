@@ -52,10 +52,15 @@ if uploaded_file is not None:
     # Make prediction
     prediction = predict(img_array)
 
-    # Display prediction results
-    st.write("## Prediction Results:")
-    for i, class_name in enumerate(class_names):
-        st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
+    # Check if the maximum confidence level is below a certain threshold
+    threshold = 0.5  # You can adjust this threshold as needed
+    if np.max(prediction) < threshold:
+        st.write("The image provided is not recognizable to the system.")
+    else:
+        # Display prediction results
+        st.write("## Prediction Results:")
+        for i, class_name in enumerate(class_names):
+            st.write(f"- {class_name}: {prediction[i]*100:.2f}%")
 
 # Instructions
 st.write("Upload an image to predict the likelihood of various eye diseases.")
