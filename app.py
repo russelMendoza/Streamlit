@@ -25,7 +25,7 @@ st.write("""
 # Eye Disease Detection System
 """)
 
-file = st.file_uploader("Choose retina image to identify the condition", type=["jpg", "png"])
+file = st.file_uploader("Choose retina image to identify the condition", type=["jpg", "png", "jpeg"])
 
 def import_and_predict(image_data, model):
     try:
