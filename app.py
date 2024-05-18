@@ -13,11 +13,6 @@ from PIL import Image, ImageOps
 import numpy as np
 import cv2
 
-# Mount Google Drive (for development in Colab only)
-from google.colab import drive
-drive.mount('/content/drive')
-!cp /content/drive/MyDrive/Colab\ Notebooks/finalproj.h5 /content/finalproj.h5
-
 @st.cache_resource
 def load_model():
     model = tf.keras.models.load_model('/content/finalproj.h5')  # Path adjusted for Colab
